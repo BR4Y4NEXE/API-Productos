@@ -1,0 +1,64 @@
+<!-- views/detalleProducto.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Producto</title>
+    <style>
+        /* Estilos similares */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF5E1;
+            color: #4A4A4A;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #D2691E;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #FFA07A;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles del Producto</h1>
+        <p><strong>Nombre:</strong> <%= producto.Nombre %></p>
+        <p><strong>Descripción:</strong> <%= producto.Descripcion %></p>
+        <p><strong>Precio:</strong> $<%= producto.Precio.toFixed(2) %></p>
+        <p><strong>Stock:</strong> <%= producto.Stock %></p>
+        <a href="/producto" class="back-link">Volver a la lista</a>
+    </div>
+</body>
+</html>
