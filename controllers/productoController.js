@@ -17,6 +17,17 @@ const verificarBody = (req, res, next) => {
     next();
 };
 
+// Ruta para cargar la interfaz CRUD de productos
+router.get('/producto/crud', async (req, res) => {
+    try {
+        const productos = await Producto.find();
+        res.render('crudProductos', { productos });
+    } catch (error) {
+        console.error('Error al cargar la interfaz CRUD:', error);
+        res.status(500).send('¡Algo salió mal al cargar la interfaz CRUD!');
+    }
+});
+
 // Obtener todos los productos y renderizar la tabla de productos
 router.get('/producto', async (req, res) => {
     try {
@@ -45,7 +56,6 @@ router.get('/producto/:id', async (req, res) => {
         }
 
         // Renderizar la vista de detalle del producto con los datos del producto
-        // Cambia 'detalleProducto' por el nombre correcto de tu plantilla EJS
         res.render('detalleProducto', { producto });
     } catch (error) {
         console.error('Error al obtener el producto:', error);
@@ -53,9 +63,8 @@ router.get('/producto/:id', async (req, res) => {
     }
 });
 
-
-// Obtener todos los productos de la tienda (READ)
-router.get('/producto', async (req, res) => {
+// Obtener todos los productos de la tienda (READ - formato JSON)
+router.get('/producto/json', async (req, res) => {
     try {
         const productos = await Producto.find();
         res.json(productos);

@@ -6,70 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Productos</title>
     <style>
-        /* Estilos similares al anterior */
         body {
             font-family: Arial, sans-serif;
-            background-color: #FFF5E1;
-            color: #4A4A4A;
+            background-color: #222e35;
             margin: 0;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 100vh;
         }
-
         .container {
-            max-width: 800px;
-            width: 100%;
-            background-color: #FFFFFF;
+            max-width: 900px;
+            margin: 0 auto;
             padding: 20px;
+            background-color: #111b21;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        h1 {
+        h1{
             text-align: center;
-            color: #D2691E;
+            color: #FAFAFA;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-
         th, td {
-            padding: 12px;
+            padding: 10px;
             text-align: left;
-            cursor: pointer;
+            border-bottom: 1px solid #DDD;
         }
-
         th {
-            background-color: #FFA07A;
-            color: #FFFFFF;
-            border-bottom: 2px solid #FF7F50;
+            background-color: #4CAF50;
+            color: white;
         }
-
         td {
-            border-bottom: 1px solid #F4A460;
+            background-color: #FAFAFA;
         }
-
-        tr:hover {
-            background-color: #FFE4C4;
+        .button-container {
+            text-align: right;
+            margin-bottom: 10px;
         }
-
-        .no-products {
-            text-align: center;
-            color: #A0522D;
-            padding: 20px 0;
+        .crud-button {
+            padding: 10px 15px;
+            background-color: #FFA500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .crud-button:hover {
+            background-color: #FF8C00;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Lista de Productos</h1>
+        
+        <!-- Botón para ir a la interfaz CRUD -->
+        <div class="button-container">
+            <button class="crud-button" onclick="window.location.href='/producto/crud'">Administrar Productos</button>
+        </div>
+
+        <!-- Tabla de productos -->
         <table>
             <thead>
                 <tr>
@@ -82,36 +81,21 @@
             <tbody>
                 <% if (productos.length > 0) { %>
                     <% productos.forEach(producto => { %>
-                        <tr class="producto-fila" data-id="<%= producto._id %>">
+                        <tr onclick="location.href='/producto/<%= producto._id %>'">
                             <td><%= producto.Nombre %></td>
                             <td><%= producto.Descripcion %></td>
                             <td>$<%= producto.Precio.toFixed(2) %></td>
                             <td><%= producto.Stock %></td>
                         </tr>
-                    <% }) %>
+                    <% }); %>
+                    
                 <% } else { %>
                     <tr>
-                        <td colspan="4" class="no-products">No hay productos disponibles</td>
+                        <td colspan="4">No hay productos disponibles</td>
                     </tr>
                 <% } %>
             </tbody>
         </table>
     </div>
-
-    <script>
-        // Obtener todas las filas de productos
-        const filasProductos = document.querySelectorAll('.producto-fila');
-
-        // Añadir evento de clic a cada fila
-        filasProductos.forEach(fila => {
-            fila.addEventListener('click', () => {
-                // Obtener el ID del producto
-                const id = fila.getAttribute('data-id');
-
-                // Redirigir a la ruta de detalles del producto
-                window.location.href = `/producto/${id}`;
-            });
-        });
-    </script>
 </body>
 </html>

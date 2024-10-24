@@ -18,6 +18,7 @@ app.use(express.static('public'));
 // Rutas
 app.use('/', productoController);
 
+
 // Manejador de errores básico
 app.use((err, req, res, next) => {
     console.error(err.stack);
