@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-//crea un esquema de un documento (tabla)
+const mongoose = require("mongoose");
+
 const productoSchema = new mongoose.Schema({
-    Nombre: {type: String, required: true},
-    Descripcion: {type: String, required: true},
-    Precio: {type: Number, required: true},
-    Stock: {type: Number, required: true},
-    // se agregan los campos existentes en la tabla con su tipo
+    Nombre: String,
+    Descripcion: String,
+    Precio: Number,
+    Stock: Number,
+    userId: mongoose.Schema.Types.ObjectId, // Relación con el usuario
 });
-// se exporta el modelo segun el esquema llamado producto 
-module.exports = mongoose.model('Producto', productoSchema);
+
+module.exports = mongoose.model("Producto", productoSchema);

@@ -1,9 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const Producto = require('../models/Producto');
+const authMiddleware = require('../middleware/authMiddleware'); 
 
 // Verificar que el middleware express.json() está configurado
 router.use(express.json());
+router.use(authMiddleware); // Aplicar el middleware en todas las rutas
+
+
+
+router.get('/producto/crud', async (req, res) => {
+    try {
+        const productos = await Producto.find({ userId: req.session.user }); // Filtrar por usuario
+        res.render('crudProductos', { productos });
+    } catch (error) {
+        console.error('Error al cargar la interfaz CRUD:', error);
+        res.status(500).send('¡Algo salió mal al cargar la interfaz CRUD!');
+    }
+});
 
 // Middleware para verificar el body en las peticiones POST y PUT
 const verificarBody = (req, res, next) => {
@@ -75,13 +89,14 @@ router.get('/producto/json', async (req, res) => {
 });
 
 // Crear un nuevo producto (CREATE)
-router.post('/producto', verificarBody, async (req, res) => {
+router.post('/producto', async (req, res) => {
     try {
         const nuevoProducto = new Producto({
             Nombre: req.body.Nombre,
             Descripcion: req.body.Descripcion,
             Precio: req.body.Precio,
-            Stock: req.body.Stock
+            Stock: req.body.Stock,
+            userId: req.session.user // Asociar el producto con el usuario
         });
         const productoGuardado = await nuevoProducto.save();
         res.status(201).json(productoGuardado);

@@ -3,129 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD de Productos</title>
+    <title>Gestión de Productos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #222e35;
-            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            line-height: 1.6;
             padding: 20px;
-        }
-
-        .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
-            background-color: #cdcdcd;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
-            color: #333333;
+            color: #0f3460;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .add-product-container {
+            background-color: #1f2a51;
+            border: 2px solid #2c3e80;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        form h2 {
+            grid-column: 1 / -1;
+            color: #2c3e80;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #4a6edb;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #2c3e80;
+            border-radius: 5px;
+            background-color: #263359;
+            color: #e0e0e0;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4a6edb;
+            box-shadow: 0 0 0 2px rgba(74, 110, 219, 0.3);
+        }
+
+        .add-product-container button {
+            background-color: #2c3e80;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+            grid-column: 1 / -1;
+        }
+
+        .add-product-container button:hover {
+            background-color: #4a6edb;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin-top: 20px;
         }
 
-        table, th, td {
-            border: 1px solid #222e35;
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #3a6390;
+        thead {
+            background-color: #0f3460;
             color: white;
+        }
+
+        th, td {
+            border: 1px solid #22273a;
+            padding: 12px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #22273a;
+        }
+
+        tbody tr:hover {
+            background-color: #2c3347;
+        }
+
+        .actions-column {
             text-align: center;
         }
 
-        .form-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
+        .delete-form {
+            display: inline;
         }
 
-        form input[type="text"],
-        form input[type="number"] {
-            width: 97%;
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #dddddd;
-            border-radius: 5px;
-        }
-
-        form button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        form button:hover {
-            background-color: #218838;
-        }
-
-        .edit-btn,
-        .delete-btn {
+        .delete-button {
+            background-color: #531d1d;
+            color: #ff6b6b;
             padding: 5px 10px;
             border: none;
-            border-radius: 5px;
+            border-radius: 3px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        .edit-btn {
-            background-color: #007bff;
-            color: white;
+        .delete-button:hover {
+            background-color: #732424;
         }
 
-        .edit-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .delete-btn {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
-
-        .back-link {
-            display: inline-block;
+        .logout-link {
+            display: block;
+            text-align: center;
             margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #ffc107;
-            color: white;
+            color: #e94560;
             text-decoration: none;
-            border-radius: 5px;
+            transition: color 0.3s ease;
         }
+
+        .logout-link:hover {
+            color: #ff6b6b;
+            text-decoration: underline;
+        }
+
+        .edit-button {
+        background-color: #1d531d;
+        color: #6bff6b;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .edit-button:hover {
+        background-color: #248224;
+    }
     </style>
+    
 </head>
+
 <body>
+    
+    <h1>Gestión de Productos</h1>
+
+    <div class="container add-product-container">
+        <form action="/producto/nuevo" method="POST">
+            <h2>Agregar Producto</h2>
+            
+            <div>
+                <label for="Nombre">Nombre:</label>
+                <input type="text" id="Nombre" name="Nombre" required>
+            </div>
+
+            <div>
+                <label for="Descripcion">Descripción:</label>
+                <input type="text" id="Descripcion" name="Descripcion" required>
+            </div>
+
+            <div>
+                <label for="Precio">Precio:</label>
+                <input type="number" id="Precio" name="Precio" step="0.01" required>
+            </div>
+
+            <div>
+                <label for="Stock">Stock:</label>
+                <input type="number" id="Stock" name="Stock" required>
+            </div>
+
+            <button type="submit">Agregar Producto</button>
+        </form>
+    </div>
+
     <div class="container">
-        <h1>Gestión de Productos</h1>
-
-        <!-- Formulario para agregar un nuevo producto -->
-        <div class="form-container">
-            <form id="producto-form">
-                <input type="text" name="Nombre" placeholder="Nombre del producto" required>
-                <input type="text" name="Descripcion" placeholder="Descripción" required>
-                <input type="number" name="Precio" placeholder="Precio" step="0.01" required>
-                <input type="number" name="Stock" placeholder="Stock" required>
-                <button type="submit">Agregar Producto</button>
-            </form>
-        </div>
-
-        <!-- Tabla de productos -->
+        <h2>Listado de Productos</h2>
         <table>
             <thead>
                 <tr>
@@ -136,130 +210,30 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="productos-table">
+            <tbody>
                 <% productos.forEach(producto => { %>
                     <tr>
                         <td><%= producto.Nombre %></td>
                         <td><%= producto.Descripcion %></td>
-                        <td>$<%= producto.Precio.toFixed(2) %></td>
+                        <td><%= producto.Precio %></td>
                         <td><%= producto.Stock %></td>
-                        <td>
-                            <!-- Botón para editar -->
-                            <button class="edit-btn" onclick="editarProducto('<%= producto._id %>', '<%= producto.Nombre %>', '<%= producto.Descripcion %>', <%= producto.Precio %>, <%= producto.Stock %>)">Editar</button>
-                            <!-- Botón para eliminar -->
-                            <button class="delete-btn" onclick="eliminarProducto('<%= producto._id %>')">Eliminar</button>
+                        <td class="actions-column">
+                            <form class="delete-form" action="/producto/eliminar/<%= producto._id %>" method="POST">
+                                <button class="delete-button" type="submit">Eliminar</button>
+                            </form>
+                            <form action="/producto/editar/<%= producto._id %>" method="GET" style="display: inline;">
+                                <button class="edit-button" type="submit">Editar</button>
+                            </form>
                         </td>
+                        
                     </tr>
                 <% }); %>
             </tbody>
         </table>
-
-        <!-- Botón de regreso -->
-        <a href="/producto" class="back-link">Volver a la lista de productos</a>
     </div>
 
-    <script>
-        // Manejar el envío del formulario para agregar un nuevo producto
-        document.getElementById('producto-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-
-            const nuevoProducto = {
-                Nombre: formData.get('Nombre'),
-                Descripcion: formData.get('Descripcion'),
-                Precio: formData.get('Precio'),
-                Stock: formData.get('Stock')
-            };
-
-            try {
-                const response = await fetch('/producto', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(nuevoProducto)
-                });
-
-                if (response.ok) {
-                    const productoAgregado = await response.json();
-                    agregarProductoTabla(productoAgregado); // Agregar producto a la tabla
-                    this.reset(); // Limpiar formulario
-                } else {
-                    alert('Error al agregar el producto');
-                }
-            } catch (error) {
-                console.error('Error al agregar producto:', error);
-            }
-        });
-
-        // Función para agregar un nuevo producto a la tabla sin recargar la página
-        function agregarProductoTabla(producto) {
-            const tabla = document.getElementById('productos-table');
-            const fila = document.createElement('tr');
-
-            fila.innerHTML = `
-                <td>${producto.Nombre}</td>
-                <td>${producto.Descripcion}</td>
-                <td>$${producto.Precio.toFixed(2)}</td>
-                <td>${producto.Stock}</td>
-                <td>
-                    <button class="edit-btn" onclick="editarProducto('${producto._id}', '${producto.Nombre}', '${producto.Descripcion}', ${producto.Precio}, ${producto.Stock})">Editar</button>
-                    <button class="delete-btn" onclick="eliminarProducto('${producto._id}')">Eliminar</button>
-                </td>
-            `;
-
-            tabla.appendChild(fila);
-        }
-
-        // Función para editar un producto
-        async function editarProducto(id, nombreActual, descripcionActual, precioActual, stockActual) {
-            const nuevoNombre = prompt("Nuevo nombre:", nombreActual);
-            const nuevaDescripcion = prompt("Nueva descripción:", descripcionActual);
-            const nuevoPrecio = prompt("Nuevo precio:", precioActual);
-            const nuevoStock = prompt("Nuevo stock:", stockActual);
-
-            if (nuevoNombre && nuevaDescripcion && nuevoPrecio && nuevoStock) {
-                const productoActualizado = {
-                    Nombre: nuevoNombre,
-                    Descripcion: nuevaDescripcion,
-                    Precio: parseFloat(nuevoPrecio),
-                    Stock: parseInt(nuevoStock)
-                };
-
-                try {
-                    const response = await fetch(`/producto/${id}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(productoActualizado)
-                    });
-
-                    if (response.ok) {
-                        location.reload(); // Recargar la página para actualizar la tabla
-                    } else {
-                        alert('Error al actualizar el producto');
-                    }
-                } catch (error) {
-                    console.error('Error al actualizar el producto:', error);
-                }
-            } else {
-                alert("Todos los campos deben ser completados.");
-            }
-        }
-
-        // Función para eliminar un producto
-        async function eliminarProducto(id) {
-            const confirmacion = confirm('¿Estás seguro de que quieres eliminar este producto?');
-            if (confirmacion) {
-                try {
-                    const response = await fetch(`/producto/${id}`, { method: 'DELETE' });
-                    if (response.ok) {
-                        location.reload(); // Recargar la página para actualizar la tabla
-                    } else {
-                        alert('Error al eliminar el producto');
-                    }
-                } catch (error) {
-                    console.error('Error al eliminar el producto:', error);
-                }
-            }
-        }
-    </script>
+    <a href="/logout" class="logout-link">Cerrar sesión</a>
+    
 </body>
+
 </html>
