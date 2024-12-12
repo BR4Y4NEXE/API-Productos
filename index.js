@@ -2,7 +2,7 @@
 const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcryptjs');
 const Producto = require("./models/Producto");
 const User = require("./models/User");
 

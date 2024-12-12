@@ -4,16 +4,17 @@
   "main": "index.js",
   "engines": {
     "node": ">=18.0.0"
-  },"scripts": {
+  },
+  "scripts": {
+    "build": "npm rebuild bcrypt",
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "build": "npm install --platform=linux --arch=x64"
+    "dev": "nodemon index.js"
   },
   "author": "Brayan Velazquez Z",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "connect-mongo": "^5.1.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
