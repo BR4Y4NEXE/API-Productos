@@ -15,7 +15,13 @@ mongoose
         useUnifiedTopology: true 
     })
     .then(() => console.log("Conectado a MongoDB Atlas"))
-    .catch((err) => console.error("Error al conectar a MongoDB Atlas:", err));
+    .catch((err) => {
+        console.error("Error al conectar a MongoDB Atlas:", err);
+        // Loguea detalles específicos del error
+        console.error("Error name:", err.name);
+        console.error("Error message:", err.message);
+        console.error("Error stack:", err.stack);
+    });
 
 // Configuración de sesión
 app.use(
