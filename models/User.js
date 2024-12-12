@@ -1,15 +1,20 @@
-// models/User.js
-const mongoose = require("mongoose");
-const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    username: { 
+        type: String, 
+        required: true, 
+        unique: true,
+        trim: true // Elimina espacios en blanco
+    },
+    password: { 
+        type: String, 
+        required: true 
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-// Método de comparación de contraseñas
-userSchema.methods.comparePassword = async function (password) {
-    return bcrypt.compare(password, this.password);
-};
-
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema);
