@@ -68,7 +68,14 @@ app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await User.findOne({ username });
-        if (!user || !(await bcrypt.compare(password, user.password))) {
+        if (!user) {
+            console.log(`Intento de inicio de sesión fallido para usuario: ${username}`);
+            return res.render("login", { error: "Usuario no encontrado" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            console.log(`Contraseña incorrecta para usuario: ${username}`);
             return res.render("login", { error: "Credenciales incorrectas" });
         }
 
@@ -76,8 +83,10 @@ app.post("/login", async (req, res) => {
         req.session.userId = user._id;
         res.redirect("/productos");
     } catch (err) {
-        console.error(err);
-        res.status(500).send("Error en el servidor");
+        console.error("Error detallado en login:", err);
+        res.status(500).render("login", { 
+            error: "Error en el servidor: " + err.message 
+        });
     }
 });
 
